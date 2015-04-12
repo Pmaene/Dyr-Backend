@@ -12,6 +12,7 @@ gem "rails"
 gem "rails_config"
 gem "redis"
 gem "sidekiq"
+gem "sidekiq-status"
 
 gem "sdoc", group: :doc
 

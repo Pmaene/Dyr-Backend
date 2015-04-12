@@ -17,7 +17,7 @@ Doorkeeper.configure do
     # end
 
     resource_owner_from_credentials do
-        user = User.find_for_database_authentication(:email => params[:username])
+        user = User.find_for_database_authentication(:username => params[:username])
         user if (user && user.valid_password?(params[:password]))
     end
 
@@ -92,10 +92,13 @@ Doorkeeper.configure do
     # end
 
     # WWW-Authenticate Realm (default "Doorkeeper").
-    #realm "Doorkeeper"
+    realm "Dyr"
 
     # Allow dynamic query parameters (disabled by default)
     # Some applications require dynamic query parameters on their request_uri
     # set to true if you want this to be allowed
     # wildcard_redirect_uri false
 end
+
+
+Doorkeeper.configuration.token_grant_types << "password"

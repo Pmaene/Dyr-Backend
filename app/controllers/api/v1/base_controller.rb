@@ -35,6 +35,10 @@ class Api::V1::BaseController < Api::BaseController
         head :no_content
     end
 
+    def current_resource_owner
+        User.find(doorkeeper_token.resource_owner_id) if doorkeeper_token
+    end
+
     private
 
         def get_resource
