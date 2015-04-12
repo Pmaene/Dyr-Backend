@@ -8,9 +8,9 @@ class Api::V1::Accessories::DoorsController < Api::V1::BaseController
 
     def switch
         if @door.nil?
-            Redis.current.set("door", params[:id], options = {:ex => 10})
+            Redis.current.set "door", params[:id], options = {:ex => 10}
 
-            @door = resource_class.find(params[:id])
+            @door = resource_class.find params[:id]
 
             if @door.hello
               Event.create!(
@@ -18,7 +18,7 @@ class Api::V1::Accessories::DoorsController < Api::V1::BaseController
                   :accessory => @door
               )
 
-              Redis.current.del("door")
+              Redis.current.del "door"
 
               render :json => {'status' => 'success'}
             else
@@ -32,16 +32,16 @@ class Api::V1::Accessories::DoorsController < Api::V1::BaseController
     private
 
         def door_params
-            params.permit(:description, :name, :url)
+            params.permit :description, :name, :url
         end
 
         def query_params
-            params.permit(:user, :resource)
+            params.permit :user, :resource
         end
 
         def set_door
-            if Redis.current.exists("door")
-                @door = resource_class.find(Redis.current.get('door'))
+            if Redis.current.exists "door"
+                @door = resource_class.find Redis.current.get('door')
             end
         end
 

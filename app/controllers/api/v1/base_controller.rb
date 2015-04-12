@@ -3,8 +3,8 @@ class Api::V1::BaseController < Api::BaseController
 
     def index
         plural_resource_name = "@#{resource_name.pluralize}"
-        resources = resource_class.where(query_params);
-        instance_variable_set(plural_resource_name, resources)
+        resources = resource_class.where query_params;
+        instance_variable_set plural_resource_name, resources
         respond_with instance_variable_get(plural_resource_name)
     end
 
@@ -13,7 +13,7 @@ class Api::V1::BaseController < Api::BaseController
     end
 
     def create
-        set_resource(resource_class.new(resource_params))
+        set_resource resource_class.new(resource_params)
 
         if get_resource.save
             render :show, status: :created
@@ -23,7 +23,7 @@ class Api::V1::BaseController < Api::BaseController
     end
 
     def update
-        if get_resource.update(resource_params)
+        if get_resource.update resource_params
             render :show
         else
             render json: get_resource.errors, status: :unprocessable_entity
@@ -36,18 +36,18 @@ class Api::V1::BaseController < Api::BaseController
     end
 
     def current_resource_owner
-        User.find(doorkeeper_token.resource_owner_id) if doorkeeper_token
+        User.find doorkeeper_token.resource_owner_id if doorkeeper_token
     end
 
     private
 
         def get_resource
-            instance_variable_get("@#{resource_name}")
+            instance_variable_get "@#{resource_name}"
         end
 
         def set_resource(resource = nil)
-            resource ||= resource_class.find(params[:id])
-            instance_variable_set("@#{resource_name}", resource)
+            resource ||= resource_class.find params[:id]
+            instance_variable_set "@#{resource_name}", resource
         end
 
         def query_params
@@ -63,7 +63,7 @@ class Api::V1::BaseController < Api::BaseController
         end
 
         def resource_params
-            @resource_params ||= self.send("#{resource_name}_params")
+            @resource_params ||= self.send "#{resource_name}_params"
         end
 
 end

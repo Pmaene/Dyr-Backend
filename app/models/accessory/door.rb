@@ -5,7 +5,7 @@ class Door < Accessory
     field :nonce, type: Integer
 
     def url=(url)
-        url.gsub!(/\/$/, "")
+        url.gsub! /\/$/, ""
     end
 
     def nonce
@@ -24,14 +24,14 @@ class Door < Accessory
     end
 
     def hello
-        jid = ArduinoWorker.perform_async(self.host, self.port, self.nonce)
-        while !Sidekiq::Status::complete?(jid)
-          if Sidekiq::Status::message(jid) == "unexpected input"
+        jid = ArduinoWorker.perform_async self.host, self.port, self.nonce
+        while !Sidekiq::Status::complete? jid
+          if Sidekiq::Status::message jid == "unexpected input"
             return false
           end
         end
 
-        !Sidekiq::Status::failed?(jid)
+        !Sidekiq::Status::failed? jid
     end
 
 end
