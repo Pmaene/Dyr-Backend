@@ -1,9 +1,8 @@
 class Event
     include Mongoid::Document
 
-    has_one :user
-    has_one :accessory
+    belongs_to :accessory
+    belongs_to :user
 
     field :creationTime, type: Time, default: ->{ Time.now }
-    field :state, type: String
 end

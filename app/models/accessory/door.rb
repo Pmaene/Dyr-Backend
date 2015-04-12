@@ -24,7 +24,14 @@ class Door < Accessory
     end
 
     def hello
-        ArduinoWorker.perform_async(self.host, self.port, self.nonce)
+        jid = ArduinoWorker.perform_async(self.host, self.port, self.nonce)
+        while !Sidekiq::Status::complete?(jid)
+          if Sidekiq::Status::message(jid) == "unexpected input"
+            return false
+          end
+        end
+
+        !Sidekiq::Status::failed?(jid)
     end
 
 end
