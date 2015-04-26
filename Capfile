@@ -8,6 +8,7 @@ require "capistrano/deploy"
 require "capistrano/bundler"
 require "capistrano/rails"
 require "capistrano/rbenv"
+require "capistrano/secrets_yml"
 
 set :rbenv_type, :user
 set :rbenv_ruby, "2.2.0"
