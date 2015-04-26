@@ -1,9 +1,10 @@
 class Api::V1::BaseController < Api::BaseController
+    before_action :doorkeeper_authorize!
     before_action :set_resource, only: [:show, :update, :destroy]
 
     def index
         plural_resource_name = "@#{resource_name.pluralize}"
-        resources = resource_class.where query_params;
+        resources = resource_class.where query_params
         instance_variable_set plural_resource_name, resources
         respond_with instance_variable_get(plural_resource_name)
     end
@@ -35,11 +36,11 @@ class Api::V1::BaseController < Api::BaseController
         head :no_content
     end
 
-    def current_resource_owner
-        User.find doorkeeper_token.resource_owner_id if doorkeeper_token
-    end
+    protected
 
-    private
+        def current_resource_owner
+            User.find doorkeeper_token.resource_owner_id if doorkeeper_token
+        end
 
         def get_resource
             instance_variable_get "@#{resource_name}"

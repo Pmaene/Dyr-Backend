@@ -1,9 +1,7 @@
 require "speck"
 
-class Api::V1::Accessories::DoorsController < Api::V1::BaseController
-    before_action :doorkeeper_authorize!
+class Api::V1::Accessories::DoorsController < Api::V1::AccessoriesController
     before_action :check_access, only: [:create, :update, :destroy]
-
     before_action :set_door
 
     def switch
@@ -13,23 +11,23 @@ class Api::V1::Accessories::DoorsController < Api::V1::BaseController
             @door = resource_class.find params[:id]
 
             if @door.hello
-              Event.create!(
-                  :user      => current_resource_owner,
-                  :accessory => @door
-              )
+                Event.create!(
+                    :user      => current_resource_owner,
+                    :accessory => @door
+                )
 
-              Redis.current.del "door"
+                Redis.current.del "door"
 
-              render :json => {'status' => 'success'}
+                render :json => {'status' => 'success'}
             else
-              render :json => {'status' => 'error'}
+                render :json => {'status' => 'error'}
             end
         else
             render :json => {'status' => 'busy'}
         end
     end
 
-    private
+    protected
 
         def door_params
             params.permit :description, :name, :url
