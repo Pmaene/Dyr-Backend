@@ -18,7 +18,6 @@ gem "sdoc", group: :doc
 
 group :development, :test do
     gem "byebug"
-    gem "capistrano-secrets-yml"
     gem "spring"
     gem "web-console"
 end
