@@ -18,7 +18,7 @@ class ArduinoWorker
         if data[0] == "challenge"
             at 2, "challenge"
 
-            speck = Speck.new "1b1a1918131211100b0a090803020100"
+            speck = Speck.new Rails.application.config.arduino_key
             ciphertext = data[1].to_i(16) ^ speck.enc("%016x" % nonce).to_i(16)
 
             nonce = "%016x" % nonce

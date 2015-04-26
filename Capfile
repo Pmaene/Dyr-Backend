@@ -8,6 +8,7 @@ require "capistrano/deploy"
 require "capistrano/bundler"
 require "capistrano/rails"
 require "capistrano/rbenv"
+require "capistrano/secrets_yml"
 require "capistrano/sidekiq"
 
 set :rbenv_type, :user
