@@ -4,6 +4,7 @@ gem "capistrano"
 gem "capistrano-bundler"
 gem "capistrano-rails"
 gem "capistrano-rbenv"
+gem 'capistrano-sidekiq'
 gem "devise"
 gem "doorkeeper"
 gem "jbuilder"
