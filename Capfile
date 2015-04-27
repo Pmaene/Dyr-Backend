@@ -14,5 +14,7 @@ require "capistrano/sidekiq"
 set :rbenv_type, :user
 set :rbenv_ruby, "2.2.0"
 
+set :linked_files, %w{config/mongoid.yml}
+
 # Load custom tasks from `lib/capistrano/tasks` if you have any defined
 Dir.glob("lib/capistrano/tasks/*.rake").each { |r| import r }

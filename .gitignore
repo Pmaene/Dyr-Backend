@@ -13,4 +13,5 @@
 /tmp
 
 # Ignore our secrets.
+/config/mongoid.yml
 /config/secrets.yml
