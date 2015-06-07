@@ -7,6 +7,7 @@ gem "capistrano-rbenv"
 gem 'capistrano-sidekiq'
 gem "devise"
 gem "doorkeeper"
+gem "highline"
 gem "jbuilder"
 gem "mongoid"
 gem "rails"

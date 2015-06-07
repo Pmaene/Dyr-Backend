@@ -82,6 +82,7 @@ GEM
     erubis (2.7.0)
     globalid (0.3.3)
       activesupport (>= 4.1.0)
+    highline (1.7.2)
     hike (1.2.3)
     hitimes (1.2.2)
     i18n (0.7.0)
@@ -204,6 +205,7 @@ DEPENDENCIES
   capistrano-sidekiq
   devise
   doorkeeper
+  highline
   jbuilder
   mongoid
   rails
