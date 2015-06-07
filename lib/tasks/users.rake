@@ -7,7 +7,7 @@ namespace :users do
         email = ask "Email: "
         username = ask "Username: "
 
-        if User.any_of({ :email => email, :username => username}).exists?
+        if User.any_of({:email => email, :username => username}).exists?
             say "\n"
             say "<%= color('\u2718 A user with this email or username already exists', RED) %>"
 

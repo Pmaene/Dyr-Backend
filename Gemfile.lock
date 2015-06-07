@@ -216,3 +216,6 @@ DEPENDENCIES
   sidekiq-status
   spring
   web-console
+
+BUNDLED WITH
+   1.10.3

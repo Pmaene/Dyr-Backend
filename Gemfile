@@ -1,10 +1,5 @@
 source "https://rubygems.org"
 
-gem "capistrano"
-gem "capistrano-bundler"
-gem "capistrano-rails"
-gem "capistrano-rbenv"
-gem 'capistrano-sidekiq'
 gem "devise"
 gem "doorkeeper"
 gem "highline"
@@ -20,7 +15,12 @@ gem "sdoc", group: :doc
 
 group :development, :test do
     gem "byebug"
+    gem "capistrano"
+    gem "capistrano-bundler"
+    gem "capistrano-rails"
+    gem "capistrano-rbenv"
     gem "capistrano-secrets-yml"
+    gem "capistrano-sidekiq"
     gem "spring"
     gem "web-console"
 end
