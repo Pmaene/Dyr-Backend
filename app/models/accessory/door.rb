@@ -2,7 +2,7 @@ class Door < Accessory
     field :host, type: String
     field :port, type: Integer
 
-    field :nonce, type: Integer
+    field :nonce, type: Integer, default: 0
 
     def url=(url)
         url.gsub! /\/$/, ""
