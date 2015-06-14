@@ -15,3 +15,6 @@
 # Ignore our secrets.
 /config/mongoid.yml
 /config/secrets.yml
+
+# Ignore Rested request files.
+/rested/*

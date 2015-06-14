@@ -100,5 +100,4 @@ Doorkeeper.configure do
     # wildcard_redirect_uri false
 end
 
-
 Doorkeeper.configuration.token_grant_types << "password"
