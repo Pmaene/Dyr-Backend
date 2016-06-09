@@ -5,11 +5,11 @@ class Door < Accessory
     field :nonce, type: Integer, default: 0
 
     def url=(url)
-        url.gsub! /\/$/, ""
+        url.gsub! /\/$/, ''
     end
 
-    def nonce
-        self[:nonce] += 1
+    def nonce(increment=true)
+        self[:nonce] += 1 if increment
         if self[:nonce] > (1 << 64)
             self[:nonce] = 0
         end
@@ -23,15 +23,8 @@ class Door < Accessory
         raise NotImplementedError
     end
 
-    def hello
-        jid = ArduinoWorker.perform_async self.host, self.port, self.nonce
-        while !Sidekiq::Status::complete? jid
-          if Sidekiq::Status::message jid == "unexpected input"
-            return false
-          end
-        end
-
-        !Sidekiq::Status::failed? jid
+    def switch
+        ArduinoWorker.perform_async self.host, self.port, self.nonce
     end
 
 end

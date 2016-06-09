@@ -1,43 +1,38 @@
-require "speck"
+require 'speck'
 
 class ArduinoWorker
     include Sidekiq::Worker
-    include Sidekiq::Status::Worker
 
     sidekiq_options :retry => false
 
     def perform(host, port, nonce)
-        total 3
-
         @host = host
         @port = port
 
-        at 1, "hello"
-        data = get_data("hello").split("/")
+        speck = Speck.new Rails.application.secrets.arduino_key
 
-        if data[0] == "challenge"
-            at 2, "challenge"
+        identifier = (host.gsub /\./, '').to_i
+        token = speck.enc('%08x%08x' % [identifier, nonce])
 
-            speck = Speck.new Rails.application.secrets.arduino_key
-            ciphertext = data[1].to_i(16) ^ speck.enc("%016x" % nonce).to_i(16)
+        data = get_data "switch/nonce/#{'%08x' % nonce}/token/#{token}"
 
-            nonce = "%016x" % nonce
-            response = "%016x" % ciphertext
-
-            data = get_data "switch/nonce/#{nonce}/response/#{response}"
-            at 3, "response"
-        else
-            at 2, "unexpected input"
-            logger.warn "unexpected input"
-        end
+        raise 'error' if data == 'status/error'
     end
 
     def get_data(message)
-        arduino = TCPSocket.new @host, @port
+        attempts = 0
+        begin
+            arduino = TCPSocket.new @host, @port
 
-        arduino.send message, 0
-        data = arduino.recv 4096;
-        arduino.close
+            arduino.send message, 0
+            data = arduino.recv 4096;
+            arduino.close
+        rescue Errno::ECONNRESET => e
+            attempts += 1
+            retry unless attempts > 3
+
+            data = ''
+        end
 
         data
     end

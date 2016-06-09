@@ -75,10 +75,10 @@ Doorkeeper.configure do
     # Specify what grant flows are enabled in array of Strings. The valid
     # strings and the flows they enable are:
     #
-    # "authorization_code" => Authorization Code Grant Flow
-    # "implicit"           => Implicit Grant Flow
-    # "password"           => Resource Owner Password Credentials Grant Flow
-    # "client_credentials" => Client Credentials Grant Flow
+    # 'authorization_code' => Authorization Code Grant Flow
+    # 'implicit'           => Implicit Grant Flow
+    # 'password'           => Resource Owner Password Credentials Grant Flow
+    # 'client_credentials' => Client Credentials Grant Flow
     #
     # If not specified, Doorkeeper enables all the four grant flows.
     #
@@ -91,8 +91,8 @@ Doorkeeper.configure do
     #   client.superapp? or resource_owner.admin?
     # end
 
-    # WWW-Authenticate Realm (default "Doorkeeper").
-    realm "Dyr"
+    # WWW-Authenticate Realm (default 'Doorkeeper').
+    realm 'Dyr'
 
     # Allow dynamic query parameters (disabled by default)
     # Some applications require dynamic query parameters on their request_uri
@@ -100,4 +100,4 @@ Doorkeeper.configure do
     # wildcard_redirect_uri false
 end
 
-Doorkeeper.configuration.token_grant_types << "password"
+Doorkeeper.configuration.token_grant_types << 'password'

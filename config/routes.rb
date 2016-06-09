@@ -13,6 +13,7 @@ Rails.application.routes.draw do
             namespace :accessories do
                 resources :doors
 
+                get '/doors/nonce/:name', to: 'doors#nonce', as: :doors_nonce
                 post '/doors/switch', to: 'doors#switch', as: :doors_switch
                 post '/doors/challenge', to: 'doors#challenge', as: :doors_challenge
             end

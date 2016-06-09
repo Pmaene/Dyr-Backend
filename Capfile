@@ -12,7 +12,7 @@ require "capistrano/secrets_yml"
 require "capistrano/sidekiq"
 
 set :rbenv_type, :user
-set :rbenv_ruby, "2.2.0"
+set :rbenv_ruby, "2.3.1"
 
 set :linked_files, %w{config/mongoid.yml}
 
