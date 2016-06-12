@@ -46,11 +46,6 @@ class Api::V1::BaseController < Api::BaseController
             instance_variable_get "@#{resource_name}"
         end
 
-        def set_resource(resource = nil)
-            resource ||= resource_class.find params[:id]
-            instance_variable_set "@#{resource_name}", resource
-        end
-
         def query_params
             {}
         end
@@ -67,4 +62,8 @@ class Api::V1::BaseController < Api::BaseController
             @resource_params ||= self.send "#{resource_name}_params"
         end
 
+        def set_resource(resource = nil)
+            resource ||= resource_class.find params[:id]
+            instance_variable_set "@#{resource_name}", resource
+        end
 end

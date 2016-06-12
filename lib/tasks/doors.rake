@@ -24,11 +24,20 @@ namespace :doors do
             next
         end
 
+        latitude = ask("Latitude: ")
+        longitude = ask("Longitude: ")
+        maxDistance = ask("Max Distance: ")
+
         user = Door.create!(
             :name => name,
             :description => description,
+
             :host => host,
-            :port => port
+            :port => port,
+
+            :latitude => latitude,
+            :longitude => longitude,
+            :maxDistance => maxDistance
         )
 
         say "\n"

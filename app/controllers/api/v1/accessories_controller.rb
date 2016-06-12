@@ -16,4 +16,14 @@ class Api::V1::AccessoriesController < Api::V1::BaseController
 
         respond_with resources
     end
+
+    protected
+
+        def accessory_params
+            params.permit :description, :name
+        end
+
+        def query_params
+            params.permit :user
+        end
 end

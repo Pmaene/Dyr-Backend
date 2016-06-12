@@ -32,11 +32,8 @@ class Api::V1::Accessories::DoorsController < Api::V1::AccessoriesController
     protected
 
         def door_params
-            params.permit :description, :name, :url
-        end
-
-        def query_params
-            params.permit :user, :resource
+            super.accessory_params
+            params.permit :latitude, :longitude, :maxDistance
         end
 
         def set_door
@@ -44,5 +41,4 @@ class Api::V1::Accessories::DoorsController < Api::V1::AccessoriesController
                 @door = resource_class.find Redis.current.get('door')
             end
         end
-
 end

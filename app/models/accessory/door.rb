@@ -1,12 +1,12 @@
 class Door < Accessory
-    field :host, type: String
-    field :port, type: Integer
+    field :host,        type: String
+    field :port,        type: Integer
 
-    field :nonce, type: Integer, default: 0
+    field :latitude,    type: Float
+    field :longitude,   type: Float
+    field :maxDistance, type: Float
 
-    def url=(url)
-        url.gsub! /\/$/, ''
-    end
+    field :nonce,       type: Integer, default: 0
 
     def nonce(increment=true)
         self[:nonce] += 1 if increment
@@ -26,5 +26,4 @@ class Door < Accessory
     def switch
         ArduinoWorker.perform_async self.host, self.port, self.nonce
     end
-
 end
