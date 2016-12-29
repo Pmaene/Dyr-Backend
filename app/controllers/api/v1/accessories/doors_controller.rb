@@ -16,10 +16,12 @@ class Api::V1::Accessories::DoorsController < Api::V1::AccessoriesController
             @door = resource_class.find params[:id]
             @door.switch
 
-            Event.create!(
-                :user      => current_resource_owner,
-                :accessory => @door
-            )
+            unless current_resource_owner.nil?
+                Event.create!(
+                    :user      => current_resource_owner,
+                    :accessory => @door
+                )
+            end
 
             Redis.current.del 'door'
 

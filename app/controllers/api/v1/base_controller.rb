@@ -39,7 +39,7 @@ class Api::V1::BaseController < Api::BaseController
     protected
 
         def current_resource_owner
-            User.find doorkeeper_token.resource_owner_id if doorkeeper_token
+            User.find doorkeeper_token.resource_owner_id if doorkeeper_token.resource_owner_id
         end
 
         def get_resource
